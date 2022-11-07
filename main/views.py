@@ -104,11 +104,6 @@ def films(request):
     all_films = Film.objects.all()
     films = all_films[(page - 1) * PAGE_SIZE: page * PAGE_SIZE]
     pages = (all_films.count() + PAGE_SIZE - 1) // PAGE_SIZE
-    # if all_films.count() % PAGE_SIZE:
-    #     page = all_films.count() // PAGE_SIZE
-    # else:
-    #     page = all_films.count() // PAGE_SIZE + 1
-
     data = {
         'films': films,
         'buttons': [i for i in range(1, pages + 1)],
@@ -150,12 +145,3 @@ def director_films(request, director_id):
         'films': films
     }
     return render(request, 'director_films.html', data)
-
-
-# def search(request):
-#     search_word = request.GET.get('search_word', '')
-#     context = {
-#         'films': Film.objects.filter(title__icontains=search_word).order_by('title').exclude(rating=0),
-#         'search_word': search_word
-#     }
-#     return render(request, 'search.html', context)
